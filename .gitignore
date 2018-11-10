@@ -2,6 +2,7 @@
 /.idea
 /out
 /*.jar
+/*.zip
 
 .DS_Store
 
