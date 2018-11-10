@@ -1,6 +1,5 @@
 package org.masamotod.idea.Drupal8NamespaceDetector;
 
-import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.notification.Notification;
 import com.intellij.notification.NotificationType;
 import com.intellij.notification.Notifications;
@@ -11,6 +10,8 @@ import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.application.ModalityState;
 import com.intellij.openapi.progress.ProgressManager;
 import com.intellij.openapi.project.Project;
+import com.jetbrains.php.drupal.settings.DrupalConfigurable;
+import com.jetbrains.php.drupal.settings.DrupalDataService;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -26,18 +27,13 @@ public class DetectDrupal8NamespaceRootsAction extends AnAction {
     final Application application = ApplicationManager.getApplication();
 
     Runnable process = () -> application.invokeLater(() -> {
-      final String drupalPathValue = PropertiesComponent.getInstance().getValue("drupal.support.drupalPath");
+      DrupalDataService drupalDataService = DrupalDataService.getInstance(project);
 
-      if (drupalPathValue == null || drupalPathValue.isEmpty()) {
-        Notifications.Bus.notify(new Notification(
-          getClass().getCanonicalName(),
-          "Detected Drupal 8 Namespace Roots",
-          "Drupal installation path does not configured.",
-          NotificationType.WARNING
-        ), project);
+      if (!drupalDataService.isConfigValid()) {
+        notifyDrupalSupportDoesNotEnabled(project);
       }
       else {
-        final Path drupalPath = Paths.get(drupalPathValue);
+        final Path drupalPath = Paths.get(drupalDataService.getDrupalPath());
 
         application.runWriteAction(() -> {
           Drupal8NamespaceRootDetector detector = new Drupal8NamespaceRootDetector(project, drupalPath);
