@@ -1,7 +1,7 @@
 <idea-plugin>
   <id>org.masamotod.idea.Drupal8NamespaceDetector</id>
   <name>Drupal 8 Namespace Detector</name>
-  <version>0.1</version>
+  <version>1.0</version>
   <vendor email="masamotod@users.noreply.github.com" url="http://masamotod.org">@masamotod</vendor>
 
   <description><![CDATA[
@@ -9,6 +9,10 @@
     ]]></description>
 
   <change-notes><![CDATA[
+      <ul>
+        <li>Fix an issue where errors occurred when using multiple Drupal projects.</li>
+        <li>A few improvements.</li>
+      </ul>
     ]]>
   </change-notes>
 
