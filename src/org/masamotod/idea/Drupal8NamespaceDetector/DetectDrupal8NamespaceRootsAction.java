@@ -33,7 +33,7 @@ public class DetectDrupal8NamespaceRootsAction extends AnAction {
       DrupalDataService drupalDataService = DrupalDataService.getInstance(project);
 
       if (!drupalDataService.isConfigValid()) {
-        notifyDrupalSupportDoesNotEnabled(project);
+        notifyDrupalSupportRequired(project);
       }
       else {
         final Path drupalPath = Paths.get(drupalDataService.getDrupalPath());
@@ -57,9 +57,9 @@ public class DetectDrupal8NamespaceRootsAction extends AnAction {
       process, "Detecting Drupal 8 Module Roots...", true, project);
   }
 
-  private static void notifyDrupalSupportDoesNotEnabled(Project project) {
+  private static void notifyDrupalSupportRequired(Project project) {
     Function<Notification, AnAction> enableSupportAction = (notification) -> {
-      return new AnAction("Enable Drupal support") {
+      return new AnAction("Configure Drupal support") {
         public void actionPerformed(AnActionEvent e) {
           notification.expire();
           DrupalConfigurable configurable = new DrupalConfigurable(project);
@@ -68,7 +68,7 @@ public class DetectDrupal8NamespaceRootsAction extends AnAction {
       };
     };
 
-    notifyGlobally(project, "Drupal Support does not enabled", "'Detect Drupal 8 Namespace Roots' requires Drupal Support.", NotificationType.WARNING, enableSupportAction);
+    notifyGlobally(project, "Drupal Support does not configured", "'Detect Drupal 8 Namespace Roots' requires Drupal Support.", NotificationType.WARNING, enableSupportAction);
   }
 
   /**
