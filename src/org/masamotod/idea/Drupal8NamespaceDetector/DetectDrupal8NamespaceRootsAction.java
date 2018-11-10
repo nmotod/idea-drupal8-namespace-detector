@@ -8,14 +8,17 @@ import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.application.Application;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.application.ModalityState;
+import com.intellij.openapi.options.ShowSettingsUtil;
 import com.intellij.openapi.progress.ProgressManager;
 import com.intellij.openapi.project.Project;
 import com.jetbrains.php.drupal.settings.DrupalConfigurable;
 import com.jetbrains.php.drupal.settings.DrupalDataService;
+import org.jetbrains.annotations.Nullable;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.MessageFormat;
+import java.util.function.Function;
 
 public class DetectDrupal8NamespaceRootsAction extends AnAction {
 
@@ -39,25 +42,50 @@ public class DetectDrupal8NamespaceRootsAction extends AnAction {
           Drupal8NamespaceRootDetector detector = new Drupal8NamespaceRootDetector(project, drupalPath);
             Drupal8NamespaceRootDetector.Result result = detector.detect();
 
-            final String message;
             if (result.isEmpty()) {
-              message = "No root detected.";
+              notifyGlobally(project, "Detect Drupal 8 Namespace Roots", "No root detected newly.", NotificationType.INFORMATION);
             }
             else {
-              message = MessageFormat.format("Added {0}, updated {1}.", result.myAdded, result.myUpdated);
+              notifyGlobally(project, "Detect Drupal 8 Namespace Roots", MessageFormat.format("Added {0}, updated {1}.", result.myAdded, result.myUpdated), NotificationType.INFORMATION);
             }
 
-            Notifications.Bus.notify(new Notification(
-              getClass().getCanonicalName(),
-              "Detected Drupal 8 Namespace Roots",
-              message,
-              NotificationType.INFORMATION
-            ), project);
         });
       }
     }, ModalityState.NON_MODAL);
 
     ProgressManager.getInstance().runProcessWithProgressSynchronously(
       process, "Detecting Drupal 8 Module Roots...", true, project);
+  }
+
+  private static void notifyDrupalSupportDoesNotEnabled(Project project) {
+    Function<Notification, AnAction> enableSupportAction = (notification) -> {
+      return new AnAction("Enable Drupal support") {
+        public void actionPerformed(AnActionEvent e) {
+          notification.expire();
+          DrupalConfigurable configurable = new DrupalConfigurable(project);
+          ShowSettingsUtil.getInstance().editConfigurable(project, configurable);
+        }
+      };
+    };
+
+    notifyGlobally(project, "Drupal Support does not enabled", "'Detect Drupal 8 Namespace Roots' requires Drupal Support.", NotificationType.WARNING, enableSupportAction);
+  }
+
+  /**
+   * @see com.jetbrains.php.drupal.DrupalUtil#notifyGlobally
+   */
+  private static void notifyGlobally(@Nullable Project project, String title, String message, NotificationType notificationType, Function<Notification, AnAction>... actions) {
+    Notification notification = new Notification(
+      "DetectDrupal8NamespaceRoots",
+      title,
+      message,
+      notificationType
+    );
+
+    for (Function<Notification, AnAction> action : actions) {
+      notification.addAction(action.apply(notification));
+    }
+
+    Notifications.Bus.notify(notification, project);
   }
 }
