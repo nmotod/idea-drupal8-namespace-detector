@@ -133,6 +133,10 @@ tasks {
     publishPlugin {
         dependsOn(patchChangelog)
     }
+
+    withType<JavaCompile> {
+        options.compilerArgs.addAll(listOf("-Xlint:deprecation", "-Xlint:unchecked"))
+    }
 }
 
 intellijPlatformTesting {

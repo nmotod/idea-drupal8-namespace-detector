@@ -1,18 +1,37 @@
-<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
-    <id>com.github.nmotod.ideadrupal8namespacedetector2</id>
-    <name>idea-drupal8-namespace-detector2</name>
-    <vendor>nmotod</vendor>
+  <id>org.masamotod.idea.Drupal8NamespaceDetector</id>
+  <name>Drupal 8 Namespace Detector</name>
+  <version>1.0</version>
+  <vendor email="masamotod@users.noreply.github.com" url="http://masamotod.org">@masamotod</vendor>
 
-    <depends>com.intellij.modules.platform</depends>
+  <description><![CDATA[
+      Detect Drupal 8 namespace roots.
+    ]]></description>
 
-    <resource-bundle>messages.MyBundle</resource-bundle>
+  <change-notes><![CDATA[
+      <ul>
+        <li>Fix an issue where errors occurred when using multiple Drupal projects.</li>
+        <li>A few improvements.</li>
+      </ul>
+    ]]>
+  </change-notes>
 
-    <extensions defaultExtensionNs="com.intellij">
-        <toolWindow factoryClass="com.github.nmotod.ideadrupal8namespacedetector2.toolWindow.MyToolWindowFactory" id="MyToolWindow"/>
-    </extensions>
+  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+  <idea-version since-build="145.0"/>
 
-    <applicationListeners>
-        <listener class="com.github.nmotod.ideadrupal8namespacedetector2.listeners.MyApplicationActivationListener" topic="com.intellij.openapi.application.ApplicationActivationListener"/>
-    </applicationListeners>
+  <depends>com.jetbrains.php</depends>
+  <depends>com.intellij.modules.platform</depends>
+  <depends>com.jetbrains.php.drupal</depends>
+
+  <extensions defaultExtensionNs="com.intellij">
+    <!-- Add your extensions here -->
+  </extensions>
+
+  <actions>
+    <!-- Add your actions here -->
+    <action id="org.masamotod.idea.Drupal8NamespaceDetector.DetectDrupal8NamespaceRootsAction" class="org.masamotod.idea.Drupal8NamespaceDetector.DetectDrupal8NamespaceRootsAction" text="Detect Drupal 8 Namespace Roots">
+      <add-to-group group-id="InspectCodeGroup" anchor="after" relative-to-action="PhpDetectPsroRoots"/>
+    </action>
+  </actions>
+
 </idea-plugin>
