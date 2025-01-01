@@ -75,7 +75,7 @@ internal class Drupal8NamespaceRootDetector(private val myProject: Project, priv
         }
 
         /**
-         * @see [Drupal core's compser.json](https://cgit.drupalcode.org/drupal/tree/core/composer.json)
+         * @see [Drupal core's composer.json](https://cgit.drupalcode.org/drupal/tree/core/composer.json)
          */
         private fun detectDrupalCore(): Result {
             val result = Result()
