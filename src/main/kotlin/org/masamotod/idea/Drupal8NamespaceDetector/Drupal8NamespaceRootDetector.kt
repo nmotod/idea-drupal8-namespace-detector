@@ -46,17 +46,17 @@ internal class Drupal8NamespaceRootDetector(private val myProject: Project, priv
         return total
     }
 
-    internal inner class ContentEntryDetector(val myContentEntry: ContentEntry) {
-        val myContentRootPath: Path
+    internal inner class ContentEntryDetector(private val myContentEntry: ContentEntry) {
+        private val myContentRootPath: Path
 
-        val mySourceFoldersMap: MutableMap<VirtualFile?, SourceFolder> =
+        private val mySourceFoldersMap: MutableMap<VirtualFile?, SourceFolder> =
             getSourceFoldersMap(
                 myContentEntry
             )
 
-        val myFileSystem: VirtualFileSystem
+        private val myFileSystem: VirtualFileSystem
 
-        val myResult: Result = Result()
+        private val myResult: Result = Result()
 
         init {
             val contentEntryFile = checkNotNull(myContentEntry.file)
