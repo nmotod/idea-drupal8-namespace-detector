@@ -24,7 +24,7 @@ internal class Drupal8NamespaceRootDetector(private val myProject: Project, priv
     private val myLogger = Logger.getInstance(javaClass)
 
     fun detect(): Result {
-        TransactionGuard.getInstance().assertWriteSafeContext(ModalityState.NON_MODAL)
+        TransactionGuard.getInstance().assertWriteSafeContext(ModalityState.nonModal())
 
         val total = Result()
 
