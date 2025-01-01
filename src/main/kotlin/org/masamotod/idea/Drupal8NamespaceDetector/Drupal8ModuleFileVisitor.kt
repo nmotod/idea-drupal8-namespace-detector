@@ -38,7 +38,7 @@ internal class Drupal8ModuleFileVisitor(private val myAction: ModuleConsumer) : 
     }
 
     @Throws(IOException::class)
-    override fun postVisitDirectory(dir: Path, exc: IOException): FileVisitResult {
+    override fun postVisitDirectory(dir: Path?, exc: IOException?): FileVisitResult {
         return FileVisitResult.CONTINUE
     }
 
