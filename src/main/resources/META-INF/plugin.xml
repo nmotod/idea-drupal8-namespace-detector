@@ -30,7 +30,7 @@
   <actions>
     <!-- Add your actions here -->
     <action id="org.masamotod.idea.Drupal8NamespaceDetector.DetectDrupal8NamespaceRootsAction" class="org.masamotod.idea.Drupal8NamespaceDetector.DetectDrupal8NamespaceRootsAction" text="Detect Drupal 8 Namespace Roots">
-      <add-to-group group-id="InspectCodeGroup" anchor="after" relative-to-action="PhpDetectPsroRoots"/>
+      <add-to-group group-id="InspectCodeInCodeMenuGroup" anchor="after" relative-to-action="PhpDetectPsroRoots"/>
     </action>
   </actions>
 
