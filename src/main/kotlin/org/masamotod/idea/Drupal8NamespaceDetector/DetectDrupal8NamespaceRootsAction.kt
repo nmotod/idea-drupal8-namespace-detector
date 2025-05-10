@@ -61,7 +61,7 @@ class DetectDrupal8NamespaceRootsAction : AnAction() {
         private fun notifyDrupalSupportRequired(project: Project) {
             val enableSupportAction =
                 Function<Notification, AnAction> { notification: Notification ->
-                    object : AnAction("Configure Drupal support") {
+                    object : AnAction("Configure Drupal Support") {
                         override fun actionPerformed(e: AnActionEvent) {
                             notification.expire()
                             val configurable = DrupalConfigurable(project)
