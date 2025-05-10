@@ -28,8 +28,10 @@
   </extensions>
 
   <actions>
-    <!-- Add your actions here -->
-    <action id="org.masamotod.idea.Drupal8NamespaceDetector.DetectDrupal8NamespaceRootsAction" class="org.masamotod.idea.Drupal8NamespaceDetector.DetectDrupal8NamespaceRootsAction" text="Detect Drupal 8 Namespace Roots">
+    <action id="org.masamotod.idea.Drupal8NamespaceDetector.DetectDrupal8NamespaceRootsAction"
+            class="org.masamotod.idea.Drupal8NamespaceDetector.DetectDrupal8NamespaceRootsAction"
+            text="Detect Drupal 8 Namespace Roots">
+      <!-- ~/.gradle/caches/.../PhpStorm-2024.2-aarch64/plugins/php-impl/lib/php.jar!/META-INF/plugin.xml -->
       <add-to-group group-id="InspectCodeInCodeMenuGroup" anchor="after" relative-to-action="PhpDetectPsroRoots"/>
     </action>
   </actions>
