@@ -90,7 +90,7 @@ class DetectDrupal8NamespaceRootsAction : AnAction() {
             vararg actions: Function<Notification, AnAction>
         ) {
             val notification = Notification(
-                "DetectDrupal8NamespaceRoots",
+                "org.masamotod.idea.Drupal8NamespaceDetector.notification.default",
                 title,
                 message,
                 notificationType
