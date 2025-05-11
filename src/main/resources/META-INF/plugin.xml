@@ -1,23 +1,7 @@
 <idea-plugin>
   <id>org.masamotod.idea.Drupal8NamespaceDetector</id>
   <name>Drupal 8 Namespace Detector</name>
-  <version>1.0</version>
   <vendor email="masamotod@users.noreply.github.com" url="http://masamotod.org">@masamotod</vendor>
-
-  <description><![CDATA[
-      Detect Drupal 8 namespace roots.
-    ]]></description>
-
-  <change-notes><![CDATA[
-      <ul>
-        <li>Fix an issue where errors occurred when using multiple Drupal projects.</li>
-        <li>A few improvements.</li>
-      </ul>
-    ]]>
-  </change-notes>
-
-  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
-  <idea-version since-build="145.0"/>
 
   <depends>com.jetbrains.php</depends>
   <depends>com.intellij.modules.platform</depends>
@@ -35,5 +19,4 @@
       <add-to-group group-id="InspectCodeInCodeMenuGroup" anchor="after" relative-to-action="PhpDetectPsroRoots"/>
     </action>
   </actions>
-
 </idea-plugin>
