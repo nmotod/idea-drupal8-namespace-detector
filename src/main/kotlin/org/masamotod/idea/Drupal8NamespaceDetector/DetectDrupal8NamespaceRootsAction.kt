@@ -35,14 +35,14 @@ class DetectDrupal8NamespaceRootsAction : AnAction() {
                         if (result.isEmpty) {
                             notifyGlobally(
                                 project,
-                                "Detect Drupal 8 Namespace Roots",
+                                "Detect Drupal Namespace Roots",
                                 "No root detected newly.",
                                 NotificationType.INFORMATION
                             )
                         } else {
                             notifyGlobally(
                                 project,
-                                "Detect Drupal 8 Namespace Roots",
+                                "Detect Drupal Namespace Roots",
                                 MessageFormat.format("Added {0}, updated {1}.", result.myAdded, result.myUpdated),
                                 NotificationType.INFORMATION
                             )
@@ -53,7 +53,7 @@ class DetectDrupal8NamespaceRootsAction : AnAction() {
         }
 
         ProgressManager.getInstance().runProcessWithProgressSynchronously(
-            process, "Detecting Drupal 8 Module Roots...", true, project
+            process, "Detecting Drupal Module Roots...", true, project
         )
     }
 
@@ -73,7 +73,7 @@ class DetectDrupal8NamespaceRootsAction : AnAction() {
             notifyGlobally(
                 project,
                 "Drupal Support does not configured",
-                "'Detect Drupal 8 Namespace Roots' requires Drupal Support.",
+                "'Detect Drupal Namespace Roots' requires Drupal Support.",
                 NotificationType.WARNING,
                 enableSupportAction
             )

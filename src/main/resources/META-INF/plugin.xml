@@ -1,6 +1,6 @@
 <idea-plugin>
   <id>org.masamotod.idea.Drupal8NamespaceDetector</id>
-  <name>Drupal 8 Namespace Detector</name>
+  <name>Drupal Namespace Detector</name>
   <vendor email="masamotod@users.noreply.github.com" url="http://masamotod.org">@masamotod</vendor>
 
   <depends>com.jetbrains.php</depends>
@@ -14,7 +14,7 @@
   <actions>
     <action id="org.masamotod.idea.Drupal8NamespaceDetector.DetectDrupal8NamespaceRootsAction"
             class="org.masamotod.idea.Drupal8NamespaceDetector.DetectDrupal8NamespaceRootsAction"
-            text="Detect Drupal 8 Namespace Roots">
+            text="Detect Drupal Namespace Roots">
       <!-- ~/.gradle/caches/.../PhpStorm-2024.2-aarch64/plugins/php-impl/lib/php.jar!/META-INF/plugin.xml -->
       <add-to-group group-id="InspectCodeInCodeMenuGroup" anchor="after" relative-to-action="PhpDetectPsroRoots"/>
     </action>
