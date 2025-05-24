@@ -1,8 +1,8 @@
-# idea-drupal8-namespace-detector2
+# Drupal Namespace Detector Plugin for PhpStorm
 
-![Build](https://github.com/nmotod/idea-drupal8-namespace-detector2/workflows/Build/badge.svg)
-[![Version](https://img.shields.io/jetbrains/plugin/v/MARKETPLACE_ID.svg)](https://plugins.jetbrains.com/plugin/MARKETPLACE_ID)
-[![Downloads](https://img.shields.io/jetbrains/plugin/d/MARKETPLACE_ID.svg)](https://plugins.jetbrains.com/plugin/MARKETPLACE_ID)
+![Build](https://github.com/nmotod/idea-drupal8-namespace-detector/workflows/Build/badge.svg)
+[![Version](https://img.shields.io/jetbrains/plugin/v/10497-drupal-8-namespace-detector.svg)](https://plugins.jetbrains.com/plugin/10497-drupal-8-namespace-detector)
+[![Downloads](https://img.shields.io/jetbrains/plugin/d/10497-drupal-8-namespace-detector.svg)](https://plugins.jetbrains.com/plugin/10497-drupal-8-namespace-detector)
 
 ## Template ToDo list
 - [x] Create a new [IntelliJ Platform Plugin Template][template] project.
