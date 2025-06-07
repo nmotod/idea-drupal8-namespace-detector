@@ -19,13 +19,13 @@ internal object Notifier {
      */
     fun notify(
         project: Project?,
-        title: String,
+        titleHtml: String,
         contentHtml: String,
         notificationType: NotificationType,
         vararg actionGenerators: (Notification) -> AnAction
     ) {
         val notification = NOTIFICATION_GROUP.createNotification(
-            title,
+            titleHtml,
             contentHtml,
             notificationType
         )

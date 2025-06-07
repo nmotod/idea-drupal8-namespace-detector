@@ -43,18 +43,10 @@ class DetectorTask(
     override fun onSuccess() {
         val result = result ?: return
 
-        val detectedCount = result.added.size + result.updated.size
-
-        val message = if (detectedCount <= 0) {
-            "No new roots detected."
-        } else {
-            "Detected ${detectedCount} new roots."
-        }
-
         Notifier.notify(
             project,
             "Detect Drupal Namespace Roots",
-            message,
+            result.formatMessageHtml(),
             NotificationType.INFORMATION
         )
     }
