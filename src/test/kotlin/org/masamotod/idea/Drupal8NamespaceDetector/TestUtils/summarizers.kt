@@ -5,11 +5,11 @@ import com.intellij.openapi.vfs.VirtualFile
 import org.masamotod.idea.Drupal8NamespaceDetector.SourceFolderTemplate
 
 // "PATH [TYPE] [NS=namespace]"
-fun summarizeSourceFolderTemplates(folders: Collection<SourceFolderTemplate>, projectRoot: VirtualFile): String {
-    return folders.map {
-        val path = it.file.path.removePrefix(projectRoot.path + "/")
-        val type = if (it.isTestSource) "[TEST]" else "[SOURCE]"
-        val ns = "[NS=${it.packagePrefix}]"
+fun summarizeSourceFolderTemplates(templates: Collection<SourceFolderTemplate>, projectRoot: VirtualFile): String {
+    return templates.map { template ->
+        val path = template.file.path.removePrefix(projectRoot.path + "/")
+        val type = if (template.isTestSource) "[TEST]" else "[SOURCE]"
+        val ns = "[NS=${template.packagePrefix}]"
         "$path $type $ns"
     }.sorted().joinToString("\n")
 }

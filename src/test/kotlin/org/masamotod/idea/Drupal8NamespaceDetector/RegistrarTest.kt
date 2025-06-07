@@ -3,12 +3,10 @@ package org.masamotod.idea.Drupal8NamespaceDetector
 import com.intellij.openapi.roots.ContentEntry
 import com.intellij.openapi.roots.ModifiableRootModel
 import com.intellij.openapi.roots.ModuleRootManager
-import com.intellij.openapi.vfs.VfsUtilCore
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.testFramework.LightVirtualFile
 import com.intellij.testFramework.fixtures.LightPlatformCodeInsightFixture4TestCase
 import org.junit.Test
-import org.masamotod.idea.Drupal8NamespaceDetector.TestUtils.summarizeSourceFolderTemplates
 import org.masamotod.idea.Drupal8NamespaceDetector.TestUtils.summarizeSourceFolders
 
 class RegistrarTest : LightPlatformCodeInsightFixture4TestCase() {
@@ -36,7 +34,7 @@ class RegistrarTest : LightPlatformCodeInsightFixture4TestCase() {
     fun testNew() {
         val registrar = Registrar(model)
 
-        val folders = listOf<SourceFolderTemplate>(
+        val templates = listOf<SourceFolderTemplate>(
             SourceFolderTemplate(
                 file = myFixture.tempDirFixture.findOrCreateDir("new_source"),
                 isTestSource = false,
@@ -49,7 +47,7 @@ class RegistrarTest : LightPlatformCodeInsightFixture4TestCase() {
             ),
         )
 
-        val result = registrar.addAll(folders)
+        val result = registrar.addAll(templates)
 
         assertEquals(
             """
@@ -85,7 +83,7 @@ class RegistrarTest : LightPlatformCodeInsightFixture4TestCase() {
 
         val registrar = Registrar(model)
 
-        val folders = listOf<SourceFolderTemplate>(
+        val templates = listOf<SourceFolderTemplate>(
             SourceFolderTemplate(
                 file = myFixture.tempDirFixture.findOrCreateDir("new_source"),
                 isTestSource = false,
@@ -113,7 +111,7 @@ class RegistrarTest : LightPlatformCodeInsightFixture4TestCase() {
             ),
         )
 
-        val result = registrar.addAll(folders)
+        val result = registrar.addAll(templates)
 
         assertEquals(
             """
@@ -142,7 +140,7 @@ class RegistrarTest : LightPlatformCodeInsightFixture4TestCase() {
 
         val registrar = Registrar(model)
 
-        val folders = listOf<SourceFolderTemplate>(
+        val templates = listOf<SourceFolderTemplate>(
             SourceFolderTemplate(
                 file = myFixture.tempDirFixture.findOrCreateDir("new_source"),
                 isTestSource = false,
@@ -160,7 +158,7 @@ class RegistrarTest : LightPlatformCodeInsightFixture4TestCase() {
             ),
         )
 
-        val result = registrar.addAll(folders)
+        val result = registrar.addAll(templates)
 
         assertEquals(
             """
@@ -181,7 +179,7 @@ class RegistrarTest : LightPlatformCodeInsightFixture4TestCase() {
     fun testInvalid() {
         val registrar = Registrar(model)
 
-        val folders = listOf<SourceFolderTemplate>(
+        val templates = listOf<SourceFolderTemplate>(
             SourceFolderTemplate(
                 file = myFixture.tempDirFixture.findOrCreateDir("new_source"),
                 isTestSource = false,
@@ -203,7 +201,7 @@ class RegistrarTest : LightPlatformCodeInsightFixture4TestCase() {
             ),
         )
 
-        val result = registrar.addAll(folders)
+        val result = registrar.addAll(templates)
 
         assertEquals(
             """
@@ -229,7 +227,7 @@ class RegistrarTest : LightPlatformCodeInsightFixture4TestCase() {
 
         val registrar = Registrar(model)
 
-        val folders = listOf<SourceFolderTemplate>(
+        val templates = listOf<SourceFolderTemplate>(
             SourceFolderTemplate(
                 file = myFixture.tempDirFixture.findOrCreateDir("update_ns"),
                 isTestSource = false,
@@ -242,7 +240,7 @@ class RegistrarTest : LightPlatformCodeInsightFixture4TestCase() {
             ),
         )
 
-        val result = registrar.addAll(folders)
+        val result = registrar.addAll(templates)
 
         assertEquals(
             """
@@ -261,7 +259,7 @@ class RegistrarTest : LightPlatformCodeInsightFixture4TestCase() {
     fun testDuplicate() {
         val registrar = Registrar(model)
 
-        val folders = listOf<SourceFolderTemplate>(
+        val templates = listOf<SourceFolderTemplate>(
             SourceFolderTemplate(
                 file = myFixture.tempDirFixture.findOrCreateDir("duplicate"),
                 isTestSource = false,
@@ -274,7 +272,7 @@ class RegistrarTest : LightPlatformCodeInsightFixture4TestCase() {
             ),
         )
 
-        val result = registrar.addAll(folders)
+        val result = registrar.addAll(templates)
 
         assertEquals(
             """

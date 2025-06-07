@@ -50,9 +50,9 @@ class ScannerTest : LightPlatformCodeInsightFixture4TestCase() {
         val drupalRoot = myFixture.findFileInTempDir("web")
         assertNotNull(drupalRoot)
 
-        val folders = Scanner(project, drupalRoot).scan()
+        val templates = Scanner(project, drupalRoot).scan()
 
-        val summary = summarizeSourceFolderTemplates(folders, myFixture.tempDirFixture.getFile(".")!!)
+        val summary = summarizeSourceFolderTemplates(templates, myFixture.tempDirFixture.getFile(".")!!)
 
         assertEquals(
             """

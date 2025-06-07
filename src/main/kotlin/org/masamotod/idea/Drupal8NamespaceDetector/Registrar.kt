@@ -19,9 +19,9 @@ class Registrar(private val model: ModifiableRootModel) {
         val invalid: Set<SourceFolderTemplate>,
     )
 
-    fun addAll(folders: Collection<SourceFolderTemplate>): Result {
-        for (folder in folders) {
-            add(folder)
+    fun addAll(templates: Collection<SourceFolderTemplate>): Result {
+        for (template in templates) {
+            add(template)
         }
 
         return Result(
@@ -32,31 +32,31 @@ class Registrar(private val model: ModifiableRootModel) {
         )
     }
 
-    private fun add(folder: SourceFolderTemplate) {
-        val contentRoot = projectFileIndex.getContentRootForFile(folder.file)
+    private fun add(template: SourceFolderTemplate) {
+        val contentRoot = projectFileIndex.getContentRootForFile(template.file)
         val contentEntry = model.contentEntries.firstOrNull { contentRoot == it.file }
 
         if (contentEntry == null) {
-            invalid.add(folder)
+            invalid.add(template)
             return
         }
 
-        val oldSourceFolder = sourceFolderIndex.lookup(folder.file)
+        val oldSourceFolder = sourceFolderIndex.lookup(template.file)
 
         if (oldSourceFolder == null) {
             // If the source folder does not exist, add it
-            sourceFolderIndex.add(contentEntry.addSourceFolder(folder.file, folder.isTestSource, folder.packagePrefix))
-            added.add(folder)
+            sourceFolderIndex.add(contentEntry.addSourceFolder(template.file, template.isTestSource, template.packagePrefix))
+            added.add(template)
 
-        } else if (folder.equalsToSourceFolder(oldSourceFolder)) {
+        } else if (template.equalsToSourceFolder(oldSourceFolder)) {
             // If the source folder already exists with the same properties, skip it
-            skipped.add(folder)
+            skipped.add(template)
 
         } else {
             // If the source folder exists but has different properties, update it
             contentEntry.removeSourceFolder(oldSourceFolder)
-            sourceFolderIndex.add(contentEntry.addSourceFolder(folder.file, folder.isTestSource, folder.packagePrefix))
-            updated.add(folder)
+            sourceFolderIndex.add(contentEntry.addSourceFolder(template.file, template.isTestSource, template.packagePrefix))
+            updated.add(template)
         }
     }
 }

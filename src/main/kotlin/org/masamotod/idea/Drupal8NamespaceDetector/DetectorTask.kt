@@ -24,7 +24,7 @@ class DetectorTask(
     override fun run(indicator: ProgressIndicator) {
         indicator.isIndeterminate = true
 
-        val folders = ReadAction.compute<List<SourceFolderTemplate>, Throwable> {
+        val templates = ReadAction.compute<List<SourceFolderTemplate>, Throwable> {
             Scanner(project, drupalRoot).scan()
         }
 
@@ -33,7 +33,7 @@ class DetectorTask(
                 val model = ModuleRootManager.getInstance(module).modifiableModel
 
                 val registrar = Registrar(model)
-                result = registrar.addAll(folders)
+                result = registrar.addAll(templates)
 
                 model.commit()
             }
