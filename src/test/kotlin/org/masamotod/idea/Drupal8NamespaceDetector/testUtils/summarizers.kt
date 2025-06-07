@@ -1,4 +1,4 @@
-package org.masamotod.idea.Drupal8NamespaceDetector.TestUtils
+package org.masamotod.idea.Drupal8NamespaceDetector.testUtils
 
 import com.intellij.openapi.roots.SourceFolder
 import com.intellij.openapi.vfs.VirtualFile
