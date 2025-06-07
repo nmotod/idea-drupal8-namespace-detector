@@ -17,9 +17,7 @@ class Registrar(private val model: ModifiableRootModel) {
         val updated: Set<SourceFolderTemplate>,
         val skipped: Set<SourceFolderTemplate>,
         val invalid: Set<SourceFolderTemplate>,
-    ) {
-        val addedOrUpdated: Set<SourceFolderTemplate> = added + updated
-    }
+    )
 
     fun addAll(folders: Collection<SourceFolderTemplate>): Result {
         for (folder in folders) {
