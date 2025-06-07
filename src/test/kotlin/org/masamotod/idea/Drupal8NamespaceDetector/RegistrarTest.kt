@@ -218,4 +218,42 @@ class RegistrarTest : LightPlatformCodeInsightFixture4TestCase() {
         assertEquals(0, result.skipped.size)
         assertEquals(1, result.invalid.size)
     }
+
+    @Test
+    fun testUpdateAndUpdate() {
+        contentEntry.addSourceFolder(
+            myFixture.tempDirFixture.findOrCreateDir("update_ns"),
+            false,
+            "Drupal\\update_ns__1"
+        )
+
+        val registrar = Registrar(model)
+
+        val folders = listOf<SourceFolderTemplate>(
+            SourceFolderTemplate(
+                file = myFixture.tempDirFixture.findOrCreateDir("update_ns"),
+                isTestSource = false,
+                packagePrefix = "Drupal\\update_ns__2"
+            ),
+            SourceFolderTemplate(
+                file = myFixture.tempDirFixture.findOrCreateDir("update_ns"),
+                isTestSource = false,
+                packagePrefix = "Drupal\\update_ns__3"
+            ),
+        )
+
+        val result = registrar.addAll(folders)
+
+        assertEquals(
+            """
+            update_ns [SOURCE] [NS=Drupal\update_ns__3]
+            """.trimIndent(),
+            summarizeSourceFolders(contentEntry.sourceFolders.toList(), projectRoot)
+        )
+
+        assertEquals(0, result.added.size)
+        assertEquals(2, result.updated.size)
+        assertEquals(0, result.skipped.size)
+        assertEquals(0, result.invalid.size)
+    }
 }

@@ -21,4 +21,9 @@ class SourceFolderIndex(model: ModifiableRootModel) {
     fun lookup(file: VirtualFile): SourceFolder? {
         return byPath[file.path]
     }
+
+    fun add(sourceFolder: SourceFolder) {
+        val path = sourceFolder.file?.path ?: return
+        byPath[path] = sourceFolder
+    }
 }

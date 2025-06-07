@@ -47,7 +47,7 @@ class Registrar(private val model: ModifiableRootModel) {
 
         if (oldSourceFolder == null) {
             // If the source folder does not exist, add it
-            contentEntry.addSourceFolder(folder.file, folder.isTestSource, folder.packagePrefix)
+            sourceFolderIndex.add(contentEntry.addSourceFolder(folder.file, folder.isTestSource, folder.packagePrefix))
             added.add(folder)
 
         } else if (folder.equalsToSourceFolder(oldSourceFolder)) {
@@ -57,7 +57,7 @@ class Registrar(private val model: ModifiableRootModel) {
         } else {
             // If the source folder exists but has different properties, update it
             contentEntry.removeSourceFolder(oldSourceFolder)
-            contentEntry.addSourceFolder(folder.file, folder.isTestSource, folder.packagePrefix)
+            sourceFolderIndex.add(contentEntry.addSourceFolder(folder.file, folder.isTestSource, folder.packagePrefix))
             updated.add(folder)
         }
     }
