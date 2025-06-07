@@ -256,4 +256,36 @@ class RegistrarTest : LightPlatformCodeInsightFixture4TestCase() {
         assertEquals(0, result.skipped.size)
         assertEquals(0, result.invalid.size)
     }
+
+    @Test
+    fun testDuplicate() {
+        val registrar = Registrar(model)
+
+        val folders = listOf<SourceFolderTemplate>(
+            SourceFolderTemplate(
+                file = myFixture.tempDirFixture.findOrCreateDir("duplicate"),
+                isTestSource = false,
+                packagePrefix = "Drupal\\duplicate"
+            ),
+            SourceFolderTemplate(
+                file = myFixture.tempDirFixture.findOrCreateDir("duplicate"),
+                isTestSource = false,
+                packagePrefix = "Drupal\\duplicate"
+            ),
+        )
+
+        val result = registrar.addAll(folders)
+
+        assertEquals(
+            """
+            duplicate [SOURCE] [NS=Drupal\duplicate]
+            """.trimIndent(),
+            summarizeSourceFolders(contentEntry.sourceFolders.toList(), projectRoot)
+        )
+
+        assertEquals(1, result.added.size)
+        assertEquals(0, result.updated.size)
+        assertEquals(1, result.skipped.size)
+        assertEquals(0, result.invalid.size)
+    }
 }
