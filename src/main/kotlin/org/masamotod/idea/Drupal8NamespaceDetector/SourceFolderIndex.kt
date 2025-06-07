@@ -18,7 +18,7 @@ class SourceFolderIndex(model: ModifiableRootModel) {
         }
     }
 
-    fun getSourceFolder(file: VirtualFile): SourceFolder? {
+    fun lookup(file: VirtualFile): SourceFolder? {
         return byPath[file.path]
     }
 }

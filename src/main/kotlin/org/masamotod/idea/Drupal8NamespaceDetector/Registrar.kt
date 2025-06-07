@@ -43,7 +43,7 @@ class Registrar(private val model: ModifiableRootModel) {
             return
         }
 
-        val oldSourceFolder = sourceFolderIndex.getSourceFolder(folder.file)
+        val oldSourceFolder = sourceFolderIndex.lookup(folder.file)
 
         if (oldSourceFolder == null) {
             // If the source folder does not exist, add it
