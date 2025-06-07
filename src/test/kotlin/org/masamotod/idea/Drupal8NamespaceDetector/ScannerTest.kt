@@ -2,7 +2,6 @@ package org.masamotod.idea.Drupal8NamespaceDetector
 
 import com.intellij.testFramework.fixtures.LightPlatformCodeInsightFixture4TestCase
 import org.junit.Test
-import org.masamotod.idea.Drupal8NamespaceDetector.testUtils.summarizeSourceFolderTemplates
 
 class ScannerTest : LightPlatformCodeInsightFixture4TestCase() {
 

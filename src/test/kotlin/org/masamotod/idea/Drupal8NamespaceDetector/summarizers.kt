@@ -1,8 +1,7 @@
-package org.masamotod.idea.Drupal8NamespaceDetector.testUtils
+package org.masamotod.idea.Drupal8NamespaceDetector
 
 import com.intellij.openapi.roots.SourceFolder
 import com.intellij.openapi.vfs.VirtualFile
-import org.masamotod.idea.Drupal8NamespaceDetector.SourceFolderTemplate
 
 // "PATH [TYPE] [NS=namespace]"
 fun summarizeSourceFolderTemplates(templates: Collection<SourceFolderTemplate>, projectRoot: VirtualFile): String {
