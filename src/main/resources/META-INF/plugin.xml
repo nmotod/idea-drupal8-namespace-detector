@@ -12,11 +12,12 @@
   </extensions>
 
   <actions>
-    <action id="org.masamotod.idea.Drupal8NamespaceDetector.DetectDrupal8NamespaceRootsAction"
-            class="org.masamotod.idea.Drupal8NamespaceDetector.DetectDrupal8NamespaceRootsAction"
+    <action id="org.masamotod.idea.Drupal8NamespaceDetector.DetectAction"
+            class="org.masamotod.idea.Drupal8NamespaceDetector.DetectAction"
             text="Detect Drupal Namespace Roots">
       <!-- ~/.gradle/caches/.../PhpStorm-2024.2-aarch64/plugins/php-impl/lib/php.jar!/META-INF/plugin.xml -->
       <add-to-group group-id="InspectCodeInCodeMenuGroup" anchor="after" relative-to-action="PhpDetectPsroRoots"/>
     </action>
+
   </actions>
 </idea-plugin>
