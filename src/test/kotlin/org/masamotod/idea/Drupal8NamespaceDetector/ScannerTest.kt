@@ -46,7 +46,6 @@ class ScannerTest : LightPlatformCodeInsightFixture4TestCase() {
     fun testScan() {
         val project = myFixture.project
 
-        val projectRoot = myFixture.tempDirFixture.getFile(".")!!
         val drupalRoot = myFixture.findFileInTempDir("web")
         assertNotNull(drupalRoot)
 
