@@ -51,10 +51,11 @@ class DetectorTask(
             "Detected ${detectedCount} new roots."
         }
 
-        Notifier.notifyGlobally(
-            project, "Detect Drupal Namespace Roots",
+        Notifier.notify(
+            project,
+            "Detect Drupal Namespace Roots",
             message,
             NotificationType.INFORMATION
-            )
+        )
     }
 }

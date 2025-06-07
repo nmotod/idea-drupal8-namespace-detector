@@ -12,26 +12,26 @@ import com.jetbrains.php.drupal.settings.DrupalConfigurable
 
 internal object Notifier {
 
-    val NOTIFICATION_GROUP = NotificationGroupManager.getInstance().getNotificationGroup("org.masamotod.idea.Drupal8NamespaceDetector.notification.default")
+    val NOTIFICATION_GROUP = NotificationGroupManager.getInstance().getNotificationGroup("org.masamotod.idea.Drupal8NamespaceDetector.notification.default")!!
 
     /**
      * @see com.jetbrains.php.drupal.DrupalUtil.notifyGlobally
      */
-    fun notifyGlobally(
+    fun notify(
         project: Project?,
         title: String,
-        message: String,
+        contentHtml: String,
         notificationType: NotificationType,
-        vararg actionBuilders: (Notification) -> AnAction
+        vararg actionGenerators: (Notification) -> AnAction
     ) {
         val notification = NOTIFICATION_GROUP.createNotification(
             title,
-            message,
+            contentHtml,
             notificationType
         )
 
-        for (build in actionBuilders) {
-            notification.addAction(build(notification))
+        for (generator in actionGenerators) {
+            notification.addAction(generator(notification))
         }
 
         Notifications.Bus.notify(notification, project)
@@ -48,7 +48,7 @@ internal object Notifier {
             }
         }
 
-        notifyGlobally(
+        notify(
             project,
             "Drupal Support does not configured",
             "'Detect Drupal Namespace Roots' requires Drupal Support.",
