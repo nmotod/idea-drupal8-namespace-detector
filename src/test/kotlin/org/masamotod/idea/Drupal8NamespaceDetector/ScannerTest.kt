@@ -29,7 +29,6 @@ class ScannerTest : LightPlatformCodeInsightFixture4TestCase() {
         )
     }
 
-
     @Test fun testScanExtensions() {
         addFilesToProject("""
             outside_of_drupal/ignored/ignored.info.yml
@@ -85,6 +84,41 @@ class ScannerTest : LightPlatformCodeInsightFixture4TestCase() {
             web/modules/custom/with_tests/tests/src [TEST] [NS=Drupal\Tests\with_tests]
             web/themes/custom/theme_with_tests/tests [TEST] [NS=]
             web/themes/custom/theme_with_tests/tests/src [TEST] [NS=Drupal\Tests\theme_with_tests]
+        """.trimIndent(), summary
+        )
+    }
+
+    @Test fun testScanRecipes() {
+        addFilesToProject("""
+            web/core/lib/Drupal.php
+            web/core/lib/Drupal/Core/File.php
+            web/core/tests/Drupal/Tests/File.php
+            web/core/recipes/recipe_with_tests/recipe.yml
+            web/core/recipes/recipe_with_tests/tests/File.php
+            web/core/recipes/recipe_with_tests/tests/src/File.php
+            web/core/recipes/recipe_with_tests_without_tests_src/recipe.yml
+            web/core/recipes/recipe_with_tests_without_tests_src/tests/File.php
+            web/core/recipes/recipe_without_tests/recipe.yml
+            outside_recipe_with_tests/recipe.yml
+            outside_recipe_with_tests/tests/File.php
+        """.trimIndent())
+
+        val project = myFixture.project
+
+        val drupalRoot = myFixture.findFileInTempDir("web")
+        assertNotNull(drupalRoot)
+
+        val templates = Scanner(project, drupalRoot).scan()
+
+        val summary = summarizeSourceFolderTemplates(templates, myFixture.tempDirFixture.getFile(".")!!)
+
+        assertEquals(
+            """
+            outside_recipe_with_tests/tests [TEST] [NS=]
+            web/core/lib [SOURCE] [NS=]
+            web/core/tests [TEST] [NS=]
+            web/core/recipes/recipe_with_tests/tests [TEST] [NS=]
+            web/core/recipes/recipe_with_tests_without_tests_src/tests [TEST] [NS=]
         """.trimIndent(), summary
         )
     }
