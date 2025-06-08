@@ -53,6 +53,10 @@ class ScannerTest : LightPlatformCodeInsightFixture4TestCase() {
             web/modules/custom/without_src/resources/File.php
             web/modules/custom/not_module/File.php
             web/modules/custom/not_module/src/File.php
+            web/themes/custom/theme_with_tests/theme_with_tests.info.yml
+            web/themes/custom/theme_with_tests/tests/File.php
+            web/themes/custom/theme_with_tests/tests/src/File.php
+            web/themes/custom/theme_without_tests/theme_without_tests.info.yml
         """)
 
         val project = myFixture.project
@@ -79,6 +83,8 @@ class ScannerTest : LightPlatformCodeInsightFixture4TestCase() {
             web/modules/custom/with_test_modules/tests/test_submodule/tests/src [TEST] [NS=Drupal\Tests\test_submodule]
             web/modules/custom/with_tests/tests [TEST] [NS=]
             web/modules/custom/with_tests/tests/src [TEST] [NS=Drupal\Tests\with_tests]
+            web/themes/custom/theme_with_tests/tests [TEST] [NS=]
+            web/themes/custom/theme_with_tests/tests/src [TEST] [NS=Drupal\Tests\theme_with_tests]
         """.trimIndent(), summary
         )
     }
