@@ -30,7 +30,7 @@ class Scanner(private val project: Project, private val drupalRoot: VirtualFile)
      * @return A list of SourceFolderTemplate objects representing the source and test directories.
      */
     fun scan(): List<SourceFolderTemplate> {
-        return scanCore() + scanModules()
+        return scanCore() + scanExtensions()
     }
 
     /**
@@ -64,11 +64,11 @@ class Scanner(private val project: Project, private val drupalRoot: VirtualFile)
     }
 
     /**
-     * Scans the project for modules by looking for .info.yml files.
+     * Scans the project for extensions (modules and themes) by looking for .info.yml files.
      *
-     * @return A list of SourceFolderTemplate objects representing the source and test directories of modules.
+     * @return A list of SourceFolderTemplate objects representing the source and test directories of extensions.
      */
-    private fun scanModules(): List<SourceFolderTemplate> {
+    private fun scanExtensions(): List<SourceFolderTemplate> {
         val templates = mutableListOf<SourceFolderTemplate>()
 
         val projectScope = GlobalSearchScope.projectScope(project)
@@ -89,19 +89,19 @@ class Scanner(private val project: Project, private val drupalRoot: VirtualFile)
     }
 
     /**
-     * Scans the module directory from the .info.yml file.
+     * Scans the extension directory from the .info.yml file.
      *
      * @param infoFile The .info.yml file to scan.
      * @return A list of SourceFolderTemplate objects representing the source and test directories.
      */
     private fun scanFromInfoFile(infoFile: VirtualFile): List<SourceFolderTemplate> {
-        logger.trace("Scan module from ${infoFile.path}")
+        logger.trace("Scan extension from ${infoFile.path}")
 
         val dir = infoFile.parent ?: return emptyList()
-        val moduleName = infoFile.name.substring(0, infoFile.name.length - ".info.yml".length)
+        val extensionName = infoFile.name.substring(0, infoFile.name.length - ".info.yml".length)
 
         val relativePath = VfsUtilCore.getRelativePath(dir, drupalRoot)
-        val isTestModule = relativePath?.contains("/tests/") ?: false
+        val isTestExtension = relativePath?.contains("/tests/") ?: false
 
         return listOfNotNull(
             dir.findChild("src")?.let { srcDir ->
@@ -109,8 +109,8 @@ class Scanner(private val project: Project, private val drupalRoot: VirtualFile)
 
                 SourceFolderTemplate(
                     file = srcDir,
-                    isTestSource = isTestModule,
-                    packagePrefix = "Drupal\\$moduleName"
+                    isTestSource = isTestExtension,
+                    packagePrefix = "Drupal\\$extensionName"
                 )
             },
             dir.findChild("tests")?.let { testsDir ->
@@ -128,7 +128,7 @@ class Scanner(private val project: Project, private val drupalRoot: VirtualFile)
                 SourceFolderTemplate(
                     file = testsSrcDir,
                     isTestSource = true,
-                    packagePrefix = "Drupal\\Tests\\$moduleName"
+                    packagePrefix = "Drupal\\Tests\\$extensionName"
                 )
             },
         )
