@@ -39,8 +39,12 @@ class Scanner(private val project: Project, private val drupalRoot: VirtualFile)
      * @return A list of SourceFolderTemplate objects representing the source and test directories of Drupal core.
      */
     private fun scanCore(): List<SourceFolderTemplate> {
+        logger.trace("Scan core from ${drupalRoot.path}")
+
         return listOfNotNull(
             drupalRoot.findDirectory("core/lib")?.let { srcDir ->
+                logger.trace("Found core/lib: ${srcDir.path}")
+
                 SourceFolderTemplate(
                     file = srcDir,
                     isTestSource = false,
@@ -48,6 +52,8 @@ class Scanner(private val project: Project, private val drupalRoot: VirtualFile)
                 )
             },
             drupalRoot.findDirectory("core/tests")?.let { testsDir ->
+                logger.trace("Found core/tests: ${testsDir.path}")
+
                 SourceFolderTemplate(
                     file = testsDir,
                     isTestSource = true,
