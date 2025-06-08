@@ -89,7 +89,7 @@ class Scanner(private val project: Project, private val drupalRoot: VirtualFile)
      * @return A list of SourceFolderTemplate objects representing the source and test directories.
      */
     private fun scanFromInfoFile(infoFile: VirtualFile): List<SourceFolderTemplate> {
-        logger.info(infoFile.path)
+        logger.trace("Scan module from ${infoFile.path}")
 
         val dir = infoFile.parent ?: return emptyList()
         val moduleName = infoFile.name.substring(0, infoFile.name.length - ".info.yml".length)
@@ -99,7 +99,7 @@ class Scanner(private val project: Project, private val drupalRoot: VirtualFile)
 
         return listOfNotNull(
             dir.findChild("src")?.let { srcDir ->
-                logger.info("S ${srcDir.path}")
+                logger.trace("Found src: ${srcDir.path}")
 
                 SourceFolderTemplate(
                     file = srcDir,
@@ -108,7 +108,7 @@ class Scanner(private val project: Project, private val drupalRoot: VirtualFile)
                 )
             },
             dir.findChild("tests")?.let { testsDir ->
-                logger.info("T ${testsDir.path}")
+                logger.trace("Found tests: ${testsDir.path}")
 
                 SourceFolderTemplate(
                     file = testsDir,
@@ -117,7 +117,7 @@ class Scanner(private val project: Project, private val drupalRoot: VirtualFile)
                 )
             },
             dir.findDirectory("tests/src")?.let { testsSrcDir ->
-                logger.info("T ${testsSrcDir.path}")
+                logger.trace("Found tests/src: ${testsSrcDir.path}")
 
                 SourceFolderTemplate(
                     file = testsSrcDir,
