@@ -5,14 +5,8 @@ import org.junit.Test
 
 class ScannerTest : LightPlatformCodeInsightFixture4TestCase() {
 
-//    override fun getTestDataPath(): String? {
-//        return "src/test/testData"
-//    }
-
-    override fun setUp() {
-        super.setUp()
-
-        val files = """
+    @Test fun testScanExtensions() {
+        addFilesToProject("""
             outside_of_drupal/ignored/ignored.info.yml
             outside_of_drupal/ignored/src/File.php
             web/core/lib/Drupal.php
@@ -34,15 +28,8 @@ class ScannerTest : LightPlatformCodeInsightFixture4TestCase() {
             web/modules/custom/without_src/resources/File.php
             web/modules/custom/not_module/File.php
             web/modules/custom/not_module/src/File.php
-        """.split("\n").map { it.trim() }.filter { it.isNotEmpty() }
+        """)
 
-        for (path in files) {
-            myFixture.addFileToProject(path, "")
-        }
-    }
-
-    @Test
-    fun testScan() {
         val project = myFixture.project
 
         val drupalRoot = myFixture.findFileInTempDir("web")
@@ -71,4 +58,11 @@ class ScannerTest : LightPlatformCodeInsightFixture4TestCase() {
         )
     }
 
+    private fun addFilesToProject(fileListText: String) {
+        fileListText
+            .split("\n")
+            .map { it.trim() }
+            .filter { it.isNotEmpty() }
+            .forEach { myFixture.addFileToProject(it, "") }
+    }
 }
