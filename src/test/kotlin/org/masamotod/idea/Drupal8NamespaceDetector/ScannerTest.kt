@@ -5,6 +5,31 @@ import org.junit.Test
 
 class ScannerTest : LightPlatformCodeInsightFixture4TestCase() {
 
+    @Test fun testScanCore() {
+        addFilesToProject("""
+            web/core/lib/Drupal.php
+            web/core/lib/Drupal/Core/File.php
+            web/core/tests/Drupal/Tests/File.php            
+        """.trimIndent())
+
+        val project = myFixture.project
+
+        val drupalRoot = myFixture.findFileInTempDir("web")
+        assertNotNull(drupalRoot)
+
+        val templates = Scanner(project, drupalRoot).scan()
+
+        val summary = summarizeSourceFolderTemplates(templates, myFixture.tempDirFixture.getFile(".")!!)
+
+        assertEquals(
+            """
+            web/core/lib [SOURCE] [NS=]
+            web/core/tests [TEST] [NS=]
+        """.trimIndent(), summary
+        )
+    }
+
+
     @Test fun testScanExtensions() {
         addFilesToProject("""
             outside_of_drupal/ignored/ignored.info.yml
