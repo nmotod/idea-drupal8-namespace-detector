@@ -30,7 +30,7 @@ class Scanner(private val project: Project, private val drupalRoot: VirtualFile)
      * @return A list of SourceFolderTemplate objects representing the source and test directories.
      */
     fun scan(): List<SourceFolderTemplate> {
-        return scanCore() + scanExtensions()
+        return scanCore() + scanExtensions() + scanRecipes()
     }
 
     /**
@@ -65,6 +65,8 @@ class Scanner(private val project: Project, private val drupalRoot: VirtualFile)
 
     /**
      * Scans the project for extensions (modules and themes) by looking for .info.yml files.
+     *
+     * Scans only the directories that are under the Drupal root directory.
      *
      * @return A list of SourceFolderTemplate objects representing the source and test directories of extensions.
      */
@@ -129,6 +131,50 @@ class Scanner(private val project: Project, private val drupalRoot: VirtualFile)
                     file = testsSrcDir,
                     isTestSource = true,
                     packagePrefix = "Drupal\\Tests\\$extensionName"
+                )
+            },
+        )
+    }
+
+    /**
+     * Scans for recipe directories that contain tests.
+     *
+     * Recipes are identified by the presence of a "recipe.yml" file in the directory.
+     * Also scans directories outside the Drupal root that may contain recipes.
+     *
+     * @return A list of SourceFolderTemplate objects representing the test directories found in recipes.
+     */
+    private fun scanRecipes(): List<SourceFolderTemplate> {
+        val templates = mutableListOf<SourceFolderTemplate>()
+
+        val projectScope = GlobalSearchScope.projectScope(project)
+
+        FilenameIndex.processAllFileNames(Processor { fileName ->
+            if (fileName.endsWith("recipe.yml")) {
+                val files = FilenameIndex.getVirtualFilesByName(fileName, projectScope)
+                for (file in files) {
+                    templates.addAll(scanFromRecipeFile(file))
+                }
+            }
+            true
+        }, projectScope, null)
+
+        return templates
+    }
+
+    private fun scanFromRecipeFile(recipeFile: VirtualFile): List<SourceFolderTemplate> {
+        logger.trace("Scan recipe from ${recipeFile.path}")
+
+        val dir = recipeFile.parent ?: return emptyList()
+
+        return listOfNotNull(
+            dir.findChild("tests")?.let { testsDir ->
+                logger.trace("Found recipe tests: ${testsDir.path}")
+
+                SourceFolderTemplate(
+                    file = testsDir,
+                    isTestSource = true,
+                    packagePrefix = ""
                 )
             },
         )

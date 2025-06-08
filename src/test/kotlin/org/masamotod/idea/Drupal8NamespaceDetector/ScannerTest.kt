@@ -116,9 +116,9 @@ class ScannerTest : LightPlatformCodeInsightFixture4TestCase() {
             """
             outside_recipe_with_tests/tests [TEST] [NS=]
             web/core/lib [SOURCE] [NS=]
-            web/core/tests [TEST] [NS=]
             web/core/recipes/recipe_with_tests/tests [TEST] [NS=]
             web/core/recipes/recipe_with_tests_without_tests_src/tests [TEST] [NS=]
+            web/core/tests [TEST] [NS=]
         """.trimIndent(), summary
         )
     }
