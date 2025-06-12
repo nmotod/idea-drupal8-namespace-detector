@@ -51,8 +51,7 @@ class DetectAction : AnAction() {
 
                         writeAction {
                             val model = ModuleRootManager.getInstance(primaryModule).modifiableModel
-                            val registrar = Registrar(model)
-                            val result = registrar.addAll(templates)
+                            val result = Registrar(model).addAll(templates)
                             model.commit()
 
                             result
