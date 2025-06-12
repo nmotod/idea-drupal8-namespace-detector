@@ -18,8 +18,8 @@ class DetectAction : AnAction() {
 
     private val logger = logger<DetectAction>()
 
-    override fun actionPerformed(action: AnActionEvent) {
-        val project = action.project
+    override fun actionPerformed(e: AnActionEvent) {
+        val project = e.project
         if (project == null) {
             logger.warn("Action performed without a project context.")
             return
