@@ -56,6 +56,7 @@ intellijPlatform {
         version = providers.gradleProperty("pluginVersion")
 
         // Extract the <!-- Plugin description --> section from README.md and provide for the plugin's manifest
+        // The <!-- Remove from plugin description --> comments to exclude lines from the description
         description = providers.fileContents(layout.projectDirectory.file("README.md")).asText.map {
             val start = "<!-- Plugin description -->"
             val end = "<!-- Plugin description end -->"
@@ -64,7 +65,10 @@ intellijPlatform {
                 if (!containsAll(listOf(start, end))) {
                     throw GradleException("Plugin description section not found in README.md:\n$start ... $end")
                 }
-                subList(indexOf(start) + 1, indexOf(end)).joinToString("\n").let(::markdownToHTML)
+                subList(indexOf(start) + 1, indexOf(end))
+                    .filterNot { it.contains("<!-- Remove from plugin description -->") }
+                    .joinToString("\n")
+                    .let(::markdownToHTML)
             }
         }
 

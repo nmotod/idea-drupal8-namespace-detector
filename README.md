@@ -4,13 +4,13 @@
 [![Version](https://img.shields.io/jetbrains/plugin/v/10497-drupal-8-namespace-detector.svg)](https://plugins.jetbrains.com/plugin/10497-drupal-8-namespace-detector)
 [![Downloads](https://img.shields.io/jetbrains/plugin/d/10497-drupal-8-namespace-detector.svg)](https://plugins.jetbrains.com/plugin/10497-drupal-8-namespace-detector)
 
-![](docs/resources/directories.png)
-
 <!-- Plugin description -->
 
 Drupal Namespace Detector is a PhpStorm plugin that detects sources/tests folders in Drupal core, modules, themes, or recipes and marks the directories as Source Roots or Test Roots.
 
 If folder has a namespace, it will also be automatically registered as the package prefix.
+
+![](docs/resources/directories.png) <!-- Remove from plugin description -->
 
 The following folders can be detected.
 
