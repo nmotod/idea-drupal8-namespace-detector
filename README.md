@@ -12,7 +12,13 @@ If folder has a namespace, it will also be automatically registered as the packa
 
 ![](docs/resources/directories.png) <!-- Remove from plugin description -->
 
-The following folders can be detected.
+Registering the sources/tests folders and namespaces offers the following benefits:
+
+- When searching with <kbd>Find in Files...</kbd>, you can exclude or search only for test code
+- When creating a new class, the correct namespace is automatically entered
+- Namespace mismatches can be detected
+
+The following folders can be detected:
 
 - Drupal core: Sources and Tests
 - Modules (core/contrib/custom): Sources and Tests
