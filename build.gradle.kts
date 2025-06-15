@@ -60,13 +60,14 @@ intellijPlatform {
         description = providers.fileContents(layout.projectDirectory.file("README.md")).asText.map {
             val start = "<!-- Plugin description -->"
             val end = "<!-- Plugin description end -->"
+            val remove = "<!-- Remove from plugin description -->"
 
             with(it.lines()) {
                 if (!containsAll(listOf(start, end))) {
                     throw GradleException("Plugin description section not found in README.md:\n$start ... $end")
                 }
                 subList(indexOf(start) + 1, indexOf(end))
-                    .filterNot { line -> line.contains("<!-- Remove from plugin description -->") }
+                    .filterNot { line -> line.contains(remove) }
                     .joinToString("\n")
                     .let(::markdownToHTML)
             }
