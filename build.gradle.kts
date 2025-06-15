@@ -66,7 +66,7 @@ intellijPlatform {
                     throw GradleException("Plugin description section not found in README.md:\n$start ... $end")
                 }
                 subList(indexOf(start) + 1, indexOf(end))
-                    .filterNot { it.contains("<!-- Remove from plugin description -->") }
+                    .filterNot { line -> line.contains("<!-- Remove from plugin description -->") }
                     .joinToString("\n")
                     .let(::markdownToHTML)
             }
