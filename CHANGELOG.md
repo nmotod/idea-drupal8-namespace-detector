@@ -2,7 +2,7 @@
 
 # Drupal Namespace Detector Plugin for PhpStorm Changelog
 
-## [2.0.0]
+## [Unreleased]
 
 ### Added
 
