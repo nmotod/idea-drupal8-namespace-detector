@@ -4,6 +4,8 @@
 
 ## [Unreleased]
 
+## [2.0.0] - 2025-06-16
+
 ### Added
 
 - [Drupal Recipes](https://www.drupal.org/docs/extending-drupal/drupal-recipes) support
@@ -26,3 +28,8 @@
 ## [0.1.0] - 2018-03-04
 
 - First release
+
+[Unreleased]: https://github.com/nmotod/idea-drupal8-namespace-detector/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/nmotod/idea-drupal8-namespace-detector/compare/v1.0.0...v2.0.0
+[1.0.0]: https://github.com/nmotod/idea-drupal8-namespace-detector/compare/v0.1.0...v1.0.0
+[0.1.0]: https://github.com/nmotod/idea-drupal8-namespace-detector/commits/v0.1.0
